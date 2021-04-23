@@ -517,6 +517,9 @@ bool Position::legal(Move m) const {
   assert(color_of(moved_piece(m)) == us);
   assert(piece_on(square<KING>(us)) == make_piece(us, KING));
 
+  if (rank_of(to_sq(m)) > RANK_5 || file_of(to_sq(m)) > FILE_D)
+      return false;
+
   // st->previous->blockersForKing consider capsq as empty.
   // If pinned, it has to move along the king ray.
   if (type_of(m) == EN_PASSANT)
@@ -563,6 +566,9 @@ bool Position::pseudo_legal(const Move m) const {
   Square from = from_sq(m);
   Square to = to_sq(m);
   Piece pc = moved_piece(m);
+
+  if (rank_of(to) > RANK_5 || file_of(to) > FILE_D)
+      return false;
 
   // Use a slower but simpler function for uncommon cases
   // yet we skip the legality check of MoveList<LEGAL>().
