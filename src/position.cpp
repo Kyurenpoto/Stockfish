@@ -517,7 +517,7 @@ bool Position::legal(Move m) const {
   assert(color_of(moved_piece(m)) == us);
   assert(piece_on(square<KING>(us)) == make_piece(us, KING));
 
-  if (rank_of(to_sq(m)) > RANK_5 || file_of(to_sq(m)) > FILE_D)
+  if (rank_of(to_sq(m)) < RANK_4 || file_of(to_sq(m)) < FILE_E)
       return false;
 
   // st->previous->blockersForKing consider capsq as empty.
@@ -567,7 +567,7 @@ bool Position::pseudo_legal(const Move m) const {
   Square to = to_sq(m);
   Piece pc = moved_piece(m);
 
-  if (rank_of(to) > RANK_5 || file_of(to) > FILE_D)
+  if (rank_of(to) < RANK_4 || file_of(to) < FILE_E)
       return false;
 
   // Use a slower but simpler function for uncommon cases
